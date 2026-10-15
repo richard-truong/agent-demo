@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.1.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'agent-demo'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('dev.langchain4j:langchain4j-bom:1.22.0')
+
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+
+    implementation 'dev.langchain4j:langchain4j'
+    implementation 'dev.langchain4j:langchain4j-open-ai'            // DeepSeek (OpenAI-compatible)
+    implementation 'dev.langchain4j:langchain4j-google-ai-gemini'   // Gemini
+    implementation 'dev.langchain4j:langchain4j-reactor'            // Flux<String> streaming bridge
+    implementation 'dev.langchain4j:langchain4j-agentic'            // @Agent + AgenticServices
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
